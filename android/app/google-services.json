@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "369273418505",
+    "firebase_url": "https://isteerassignment-873c0.firebaseio.com",
+    "project_id": "isteerassignment-873c0",
+    "storage_bucket": "isteerassignment-873c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369273418505:android:b212d49145350200",
+        "android_client_info": {
+          "package_name": "com.isteerassignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369273418505-qdbfo4c5dtpbda113jmmiaq6nb3n61ft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.isteerassignment",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "369273418505-sk9s17niruuj41cp6ciade2bl0gqkbok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp5ea2_WzlEYqnQEMwxCNVj_XuVujAH8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369273418505-sk9s17niruuj41cp6ciade2bl0gqkbok.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
