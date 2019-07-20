@@ -28,7 +28,7 @@ class NearByPlaces extends Component {
     await this.requestLocationPermission();
   }
 
-  requestLocationPermission = async  => {
+  requestLocationPermission = async () => {
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -38,7 +38,6 @@ class NearByPlaces extends Component {
         }
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        alert("You can use the location");
         Geolocation.getCurrentPosition(position => {
           console.log("Posirion", position);
           this.setState({
