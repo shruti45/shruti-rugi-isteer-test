@@ -5,3 +5,7 @@ export const IMAGE_BACKGROUND_COLOR = "#ccc";
 export const HOME = "Home";
 export const YOUR_DAILY_READ = "Your Daily Read";
 export const FETCHING_NEWS = "Fetching news...";
+export const API_KEY = "AIzaSyB2ceUETj5czaVNW7Wy-H2op0oUr24dx6s";
+export const LOG_OUT = "Log out";
+export const LOADING = "Loading...";
+export const NEAR_BY_PLACES = "NearByPlaces";
