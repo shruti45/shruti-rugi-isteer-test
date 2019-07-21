@@ -17,6 +17,7 @@ import Header from "../coreComponents/Header";
 import colors from "../utils/colors";
 import ListItem from "../coreComponents/ListItem";
 import { LOG_OUT, LOADING, NEAR_BY_PLACES } from "../utils/constants";
+import config from "../utils/config";
 
 //Component
 class NearByPlaces extends Component {
@@ -40,11 +41,18 @@ class NearByPlaces extends Component {
   }
 
   async componentDidMount() {
+    await this.requestLocationPermission();
     const { params } = this.props.navigation.state;
     this.setState({ userInfo: params.userInfo });
-    await this.requestLocationPermission();
+    await this._configureGoogleSignIn();
   }
 
+  _configureGoogleSignIn() {
+    GoogleSignin.configure({
+      webClientId: config.webClientId,
+      offlineAccess: false
+    });
+  }
   requestLocationPermission = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -80,7 +88,7 @@ class NearByPlaces extends Component {
       await GoogleSignin.signOut();
       this.setState({ userInfo: null, error: null });
       AsyncStorage.removeItem("USER");
-      navigate("Launcher");
+      navigate("SignIn");
     } catch (error) {
       this.setState({
         error

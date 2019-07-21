@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, AsyncStorage } from "react-native";
+import { View, Text, AsyncStorage } from "react-native";
+import styles from "../styles/LauncherStyles";
 
 export default class Launcher extends React.Component {
   static navigationOptions = {
@@ -17,9 +18,7 @@ export default class Launcher extends React.Component {
     }
   }
 
-  async renderUI() {}
-
   render() {
-    return <View />;
+    return <View style={styles.container} />;
   }
 }
