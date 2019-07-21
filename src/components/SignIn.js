@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { StatusBar, View, Text, ScrollView, AsyncStorage } from "react-native";
 import styles from "../styles/SignInStyle";
-import colors from "../../utils/colors";
+import colors from "../utils/colors";
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes
 } from "react-native-google-signin";
-import config from "../../utils/config";
+import config from "../utils/config";
+import { StackActions, NavigationActions } from "react-navigation";
 
+const resetAction = StackActions.reset({
+  index: 0,
+  actions: [NavigationActions.navigate({ routeName: "NearByPlaces" })]
+});
 // create a component
 class SignIn extends Component {
   static navigationOptions = {
@@ -24,54 +29,28 @@ class SignIn extends Component {
   }
 
   async componentDidMount() {
-    const { navigate } = this.props.navigation;
     await this._configureGoogleSignIn();
-    await this._getCurrentUser();
-    isUserdLoggedIn = await AsyncStorage.getItem("USER");
-    if (isUserdLoggedIn) {
-      navigate("NearByPlaces", { userInfo: isUserdLoggedIn });
-    }
   }
 
   _configureGoogleSignIn() {
-    console.log("_configureGoogleSignIn called");
     GoogleSignin.configure({
       webClientId: config.webClientId,
       offlineAccess: false
     });
   }
 
-  async _getCurrentUser() {
-    try {
-      const userInfo = await GoogleSignin.signInSilently();
-      this.setState({ userInfo, error: null });
-    } catch (error) {
-      const errorMessage =
-        error.code === statusCodes.SIGN_IN_REQUIRED
-          ? "Please sign in :)"
-          : error.message;
-      this.setState({
-        error: new Error(errorMessage)
-      });
-    }
-  }
-
   _signIn = async () => {
-    console.log("Pressed");
     const { navigate } = this.props.navigation;
     try {
       let res = await GoogleSignin.hasPlayServices();
-      console.log(res);
       const userInfo = await GoogleSignin.signIn();
-      console.log("userInfo", userInfo);
       this.setState({ userInfo });
-
       if (userInfo) {
         await AsyncStorage.setItem("USER", JSON.stringify(userInfo));
-        navigate("NearByPlaces", { userInfo: userInfo });
+        this.props.navigation.dispatch(resetAction);
       }
     } catch (error) {
-      console.log("userInfo==error", error);
+      alert(error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -81,19 +60,6 @@ class SignIn extends Component {
       } else {
         // some other error happened
       }
-    }
-  };
-
-  _signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-
-      this.setState({ userInfo: null, error: null });
-    } catch (error) {
-      this.setState({
-        error
-      });
     }
   };
 
